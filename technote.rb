@@ -4,56 +4,63 @@
 
 require "sinatra"
 require "redcarpet"
-require "mongo"
+# require "mongo"
+require "./lib/techs"
+require "./lib/workorders"
+require "./lib/databaser"
 
-configure do
-  conn = Mongo::Connection.new("localhost", 27017)
-  set :mongo_connection, conn
-  set :mongo_db,         conn.db('test')
-end
-
-get '/collections/?' do
-  settings.mongo_db.collection_names
-end
-
-helpers do
-  # a helper method to turn a string ID
-  # representation into a BSON::ObjectId
-  def object_id val
-    BSON::ObjectId.from_string(val)
-  end
-
-  def document_by_id id
-    id = object_id(id) if String === id
-    settings.mongo_db['test'].
-      find_one(:_id => id).to_json
-  end
-end
-
+require "pry"
 
 #-------------------------------------------------------------------------------
+# MongoDB play...
 
-set :haml, :format => :html5, layout: :layout
+configure do
+  # conn = Mongo::Connection.new("localhost", 27017)
+  # set :mongo_connection,  conn
+  # set :mongo_db,          conn.db('test')
+  # set :techs,             settings.mongo_db["techs"]
+  set :techs,             Techs.new
+  # set :workorders,        settings.mongo_db["workorders"]
+  set :workorders,        Workorders.new
+  # use session cookies
+  enable :sessions
+end
+
+#-------------------------------------------------------------------------------
+# the actual app of appyness....
+
+set :haml, :layout => :layout, :format => :html5
 set :markdown, layout_engine: :haml
 
-get '/time' do
-  haml :time
+get '/' do
+  haml :new
 end
 
-get '/wah' do
-  markdown :test
+get '/workorders' do
+  
+  haml :workorder
 end
 
-get '/tech/' do
-  haml :default
-  @stuff = "listing all techs..."
+get '/techs' do
+  techs = settings.techs.find().to_a
+  @techs = techs.map {|t| t if t["firstname"] }.join('<br>')
+  haml :techs
+end
+
+get '/tech-add' do
+  haml :tech_add
+end
+
+post '/tech-add' do
+  settings.techs.insert(params)
+  @working = "recievd: #{params}"
+  haml :tech_add
 end
 
 get '/tech/:name' do
-  @stuff = "you searched for tech #{params[:name]}"
+  tech = settings.techs.find("tech" =>  params[:name])
+  @stuff = "you searched for tech #{params[:name]} and found: #{tech}"
 end
 
-get '/:stuff' do
-  @stuff = "this is my funky paragraph... it takes arguments!! #{params[:stuff]}"
-  haml :default
-end
+
+

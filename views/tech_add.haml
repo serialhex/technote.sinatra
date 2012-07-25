@@ -1,0 +1,13 @@
+%h2
+  Add a new tech!
+
+%p= @working
+
+%form(name="input" action="/tech-add" method="post")
+  First name:
+  %input(type="text" name="firstname")
+  %br
+  Last Name:
+  %input(type="text" name="lastname")
+  %br
+  %input(type="submit" value="Submit")
