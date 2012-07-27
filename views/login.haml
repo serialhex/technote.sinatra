@@ -1,0 +1,15 @@
+%script{type: "text/javascript", src: "src/stuff.js"}
+
+%p{onclick: "checkCookie()"}
+  am i logged in?  if i am, my name is:
+
+/ masichism...
+%p{id: "myP"}
+:javascript
+  var user=getCookie("username");
+  document.getElementById("myP").innerHTML=user;
+
+// moar...
+%p{id: "myP", onclick: "clearCookie('username')"}
+  click me to clear cookies!!!
+

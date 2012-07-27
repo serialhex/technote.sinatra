@@ -1,7 +1,9 @@
 %h2
   New Workorder!!!
 
-%form
+%form{action: "workorder-add", method: "post"}
+
+  / a table for basic info on customer
   %table
     %tr
       %td
@@ -23,4 +25,39 @@
         City:
       %td
         %input{type: "text", name: "city"}
+    %tr
+      %td
+        Home Phone:
+      %td
+        %input{type: "text", name: "home-phone"}
+    %tr
+      %td
+        Work Phone:
+      %td
+        %input{type: "text", name: "work-phone"}
+    %tr
+      %td
+        Cell Phone:
+      %td
+        %input{type: "text", name: "cell-phone"}
 
+  / no moar table....
+  Equipment brought in:
+  %br
+  %textarea{rows: "3", cols: "50", name: "equipment"}
+
+  %br
+  %br
+  Windows Password:
+  %br
+  %input{type: "text", name: "password"}
+
+  %br
+  %br
+  List all problems:
+  %br
+  %textarea{rows: "5", cols: "50", name: "problems"}
+
+  %br
+  %br
+  %input{type: "submit", value: "Submit!"}

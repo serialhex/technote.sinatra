@@ -1,7 +1,12 @@
 %html
   %head
+    %script{type: "text/javascript", src: "src/stuff.js"}
     %title Technote
-  %body
+  %body{onload: "checkCookie()"}
     %h1 Technote
     %hr
+    %div{id: "user"}
+      :javascript
+        txt = "Welcome " + getCookie("username");
+        document.getElementById("user").innerHTML=txt;
     =yield

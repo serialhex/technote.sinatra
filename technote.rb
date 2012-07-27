@@ -36,9 +36,22 @@ get '/' do
   haml :new
 end
 
+get '/login' do
+  haml :login
+end
+
+post '/workorder-add' do
+  @params = params
+  haml :default
+end
+
 get '/workorders' do
-  
   haml :workorder
+end
+
+get '/workorder/:number' do
+  @params = "set the workorder number and stuff with the things and stuff...  #{params[:number]}"
+  haml :default
 end
 
 get '/techs' do
