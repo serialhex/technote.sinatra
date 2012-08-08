@@ -1,15 +1,5 @@
 %h2
-  This is where you type your workorder
+  listing all workorders...
 
-%form{name: "input", action: "workorder", method: "post"}
-  %p
-    Workorder Text Field of TextyNess!!!
-    %br
-    %input{type: "text", name: "foo"}
-
-  %p
-    Workorder Text Area of SexiTextiNess!!!!
-    %br
-    %textarea{rows: "10", cols: "30", name: "thingy"}
-
-  %input{type: "submit", value: "Submit!"}
+%ul
+  = @workorders

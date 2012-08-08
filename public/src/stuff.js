@@ -32,7 +32,7 @@ function getCookie(c_name) {
 function checkCookie() {
   var username=getCookie("username");
   if (username!=null && username!="") {
-    alert("Welcome again " + username);
+    // alert("Welcome again " + username);
   }
   else {
     username=prompt("Please enter your name:","");

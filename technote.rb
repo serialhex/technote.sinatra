@@ -4,6 +4,7 @@
 
 require "sinatra"
 require "redcarpet"
+require "sass"
 # require "mongo"
 require "./lib/techs"
 require "./lib/workorders"
@@ -32,23 +33,52 @@ end
 set :haml, :layout => :layout, :format => :html5
 set :markdown, layout_engine: :haml
 
+###########################################
+# login
 get '/' do
-  haml :new
+  haml :login
 end
 
 get '/login' do
   haml :login
 end
 
-post '/workorder-add' do
-  @params = params
+###########################################
+# adding workorders
+get '/new' do
+  haml :new
+end
+
+post '/new' do
+  settings.workorders.insert(params)
+  @text = "added workorder:<br/> #{params}"
   haml :default
 end
 
 get '/workorders' do
-  haml :workorder
+  doc = "%h2\n  listing all workorders...\n\n\%ul\n"
+
+  # doc << "  %li #{settings.workorders.find.to_a} \n"
+  settings.workorders.find.each { |w| doc << "  %li #{w}\n" }
+  # haml :workorder
+  puts doc
+  haml doc
 end
 
+###########################################
+# adding techs
+get '/tech-add' do
+  haml :tech_add
+end
+
+post '/tech-add' do
+  settings.techs.insert(params)
+  @working = "received: #{params}"
+  haml :tech_add
+end
+
+###########################################
+# perusing...
 get '/workorder/:number' do
   @params = "set the workorder number and stuff with the things and stuff...  #{params[:number]}"
   haml :default
@@ -60,20 +90,13 @@ get '/techs' do
   haml :techs
 end
 
-get '/tech-add' do
-  haml :tech_add
-end
-
-post '/tech-add' do
-  settings.techs.insert(params)
-  @working = "recievd: #{params}"
-  haml :tech_add
-end
-
 get '/tech/:name' do
   tech = settings.techs.find("tech" =>  params[:name])
   @stuff = "you searched for tech #{params[:name]} and found: #{tech}"
 end
 
 
-
+#  fluff....
+get '/css/stylesheet.css' do
+  sass :'css/stylesheet'
+end

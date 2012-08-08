@@ -1,12 +1,36 @@
 %html
   %head
-    %script{type: "text/javascript", src: "src/stuff.js"}
+    %script{ type: "text/javascript", src: "src/stuff.js" }
+    %link{ rel: "stylesheet", type: "text/css", href: "/css/style.css" }
+    %link{ rel: "stylesheet", type: "text/css", href: "/css/stylesheet.css" }
     %title Technote
+
+
   %body{onload: "checkCookie()"}
-    %h1 Technote
-    %hr
-    %div{id: "user"}
-      :javascript
-        txt = "Welcome " + getCookie("username");
-        document.getElementById("user").innerHTML=txt;
-    =yield
+
+    / header stuff
+    %div{id: "header"}
+      %h1 Technote --eez ugly, no?
+      %hr
+      
+
+    / sidepane stuff
+    %div{id: "sidepane"}
+      %nav
+        %ul
+          %li
+            %a{href: "/new"} new
+          %li
+            %a{href: "/workorders"} list workorders
+          %li
+            %a{href: "/techs"} list techs
+        %div{id: "user"}
+          :javascript
+            txt = "Welcome " + getCookie("username");
+            document.getElementById("user").innerHTML=txt;
+        %button{ type: "button", class: "css3button", onclick: "clearCookie('username')"}
+          logout
+
+    / main stuff
+    %div{id: "main"}
+      =yield
