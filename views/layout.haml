@@ -1,12 +1,14 @@
 %html
   %head
     %script{ type: "text/javascript", src: "src/stuff.js" }
-    %link{ rel: "stylesheet", type: "text/css", href: "/css/style.css" }
+    / stylesheet reset & style!
+    %link{ rel: "stylesheet", type: "text/css", href: "/css/main.css" }
+    / %link{ rel: "stylesheet", type: "text/css", href: "/css/style.css" }
     %link{ rel: "stylesheet", type: "text/css", href: "/css/stylesheet.css" }
     %title Technote
 
 
-  %body{onload: "checkCookie()"}
+  %body{onload: "checkCookie()", class: "dark"}
 
     / header stuff
     %div{id: "header"}
@@ -20,6 +22,8 @@
         %ul
           %li
             %a{href: "/new"} new
+          %li
+            %a{href: "/find"} find
           %li
             %a{href: "/workorders"} list workorders
           %li

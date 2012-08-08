@@ -1,19 +1,93 @@
+// solarized style!
+$base03: #002b36
+$base02: #073642
+$base01: #586e75
+$base00: #657b83
+$base0: #839496
+$base1: #93a1a1
+$base2: #eee8d5
+$base3: #fdf6e3
+$yellow: #b58900
+$orange: #cb4b16
+$red: #dc322f
+$magenta: #d33682
+$violet: #6c71c4
+$blue: #268bd2
+$cyan: #2aa198
+$green: #859900
+
+=rebase($rebase03, $rebase02, $rebase01, $rebase00, $rebase0, $rebase1, $rebase2, $rebase3)
+  background-color: $rebase03
+  color: $rebase0
+  *
+    color: $rebase0
+  h1,h2,h3,h4,h5,h6
+    color: $rebase1
+    border-color: $rebase0
+  a, a:active, a:visited
+    color: $rebase1
+
+=accentize($accent)
+  a, a:active, a:visited, code.url
+    color: $accent
+  h1,h2,h3,h4,h5,h6
+    color: $accent
+
+/* light is default mode, so pair with general html definition
+html, .light
+  +rebase($base3, $base2, $base1, $base0, $base00, $base01, $base02, $base03)
+
+.dark
+  +rebase($base03, $base02, $base01, $base00, $base0, $base1, $base2, $base3)
+
+html *
+  color-profile: sRGB
+  rendering-intent: auto
+
+
+
+// my stuff... how things look...
 body
-  background-color: green
+  // background-color: green
   font-size: 0.7em
 
+#header
+  position: absolute
+  left: 50px
+
 #sidepane
-  background-color: #FFD700
-  height: 200px
+  // background-color: #FFD700
+  // height: 200px
   width: 100px
   float: left
   position: fixed
-  top: 150px
+  top: 75px
   left: 50px
 
 #main
-  background-color: blue
+  // background-color: orange
   width: 500px
   position: absolute
   left: 220px
-  top: 150px
+  top: 75px
+
+ul, li
+  // color: red
+
+
+// css3 button!!!
+button.css3button
+  font-family: Arial, Helvetica, sans-serif
+  font-size: 10px
+  color: #123d54
+  padding: 5px 5px
+  background: -moz-linear-gradient(top, #ebf1f5 0%, #ab5797)
+  background: -webkit-gradient(linear, left top, left bottom, from(#ebf1f5), to(#ab5797))
+  -moz-border-radius: 4px
+  -webkit-border-radius: 4px
+  border-radius: 4px
+  border: 1px solid #003366
+  -moz-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5), inset 0px 0px 1px rgba(255, 255, 255, 1)
+  -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5), inset 0px 0px 1px rgba(255, 255, 255, 1)
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5), inset 0px 0px 1px rgba(255, 255, 255, 1)
+  text-shadow: -1px -1px 0px rgba(0, 0, 0, 0), 0px 1px 0px rgba(255, 255, 255, 0.3)

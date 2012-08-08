@@ -46,24 +46,28 @@ end
 ###########################################
 # adding workorders
 get '/new' do
+  @num = settings.workorders.next_number
+  # coll.find.sort([:i, :desc])
   haml :new
 end
 
 post '/new' do
-  settings.workorders.insert(params)
-  @text = "added workorder:<br/> #{params}"
+  foo = settings.workorders.insert(params)
+  @text = "added workorder:<br/> #{foo}"
   haml :default
 end
 
 get '/workorders' do
-  doc = "%h2\n  listing all workorders...\n\n\%ul\n"
-
-  # doc << "  %li #{settings.workorders.find.to_a} \n"
-  settings.workorders.find.each { |w| doc << "  %li #{w}\n" }
-  # haml :workorder
-  puts doc
+  doc = "%h2\n  listing all workorders...\n\n%ul\n"
+  settings.workorders.find.first(10).each { |w|
+    doc << "  %li #{w}\n"
+  }
   haml doc
 end
+
+###########################################
+# finding stuff
+
 
 ###########################################
 # adding techs
@@ -77,17 +81,17 @@ post '/tech-add' do
   haml :tech_add
 end
 
+get '/techs' do
+  techs = settings.techs.find().to_a
+  @techs = techs.map {|t| t if t["firstname"] }.join('<br>')
+  haml :techs
+end
+
 ###########################################
 # perusing...
 get '/workorder/:number' do
   @params = "set the workorder number and stuff with the things and stuff...  #{params[:number]}"
   haml :default
-end
-
-get '/techs' do
-  techs = settings.techs.find().to_a
-  @techs = techs.map {|t| t if t["firstname"] }.join('<br>')
-  haml :techs
 end
 
 get '/tech/:name' do
@@ -99,4 +103,8 @@ end
 #  fluff....
 get '/css/stylesheet.css' do
   sass :'css/stylesheet'
+end
+
+get '/css/style.css' do
+  scss :'css/style'
 end
