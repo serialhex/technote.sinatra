@@ -52,6 +52,7 @@ get '/new' do
 end
 
 post '/new' do
+  params["workorder"] = params["workorder"].to_i
   foo = settings.workorders.insert(params)
   @text = "added workorder:<br/> #{foo}"
   haml :default

@@ -10,11 +10,18 @@ class Workorders < DataBaser
   end
 
   def next_number
-    @workorders.find_one(nil, sort: ["workorder", -1])["workorder"].next.to_i
+    t = @workorders.find_one(nil, sort: ["workorder", -1])
+    t.nil? ? 1 : t["workorder"].to_i.next
   end
-  
+
   def method_missing(m, *args, &block)
     @workorders.send(m, *args, &block)
   end
-  
+
+  class Workorder
+    def initialize(wo)
+      @wo = wo
+    end
+  end
+
 end
